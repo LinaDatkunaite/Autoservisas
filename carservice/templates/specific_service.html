@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+  <p><strong>Paslaugos detalės:</strong></p>
+
+ {% for a in specific_service %}
+<br>
+      <p><strong>{{a.service}}:</strong>  {{a.price}}eur </p>
+
+
+{% endfor %}
+{% endblock %}

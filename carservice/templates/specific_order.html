@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+  <p><h4><strong>Užsakymo detalės:</strong></h4></p>
+<p><strong>Data: </strong>{{order_list.order_date}}</p>
+<p><strong>Klientas: </strong>{{order_list.car.client}}</p>
+<p><strong>Mašinos modelis: </strong>{{order_list.car.car_model}}</p>
+<p><strong>Valstybinis nr: </strong>{{order_list.car.plate_nr}}</p>
+<p><strong>VIN: </strong>{{order_list.car.vin_number}}</p>
+<p><strong>Suma: </strong>{{order_list.total_price}} eur</p>
+<br>
+<h4><strong>Užsakymo eilutės:</strong></h4>
+
+
+<table class="table table-sm" style="align: center; margin-top:10px, margin-light:50px">
+      <thead class="thead-dark">
+      <th>Paslauga</th>
+      <th>Kiekis</th>
+      <th>Kaina</th>
+
+      </thead>
+      <tbody>
+       {% for order in orders %}
+      <tr>
+        <td>{{order.service}}</td>
+        <td>{{order.quantity}} vnt.</td>
+        <td>{{order.price}} eur</td>
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+{% endblock %}

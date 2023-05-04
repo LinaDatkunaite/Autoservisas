@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+  <p>{{repaired_model.brand}} {{repaired_model.car_model}} ({{repaired_model.year}},{{repaired_model.engine}}) klientai:</p>
+  {% for a in car %}
+<br>
+      <p><strong>Klientas:</strong> {{a.client}}</p>
+      <p><strong>Valstybinis numeris:</strong> {{a.plate_nr}}</p> <p><strong>VIN:</strong> {{a.vin_number}}</p>
+  {% endfor %}
+
+{% endblock %}

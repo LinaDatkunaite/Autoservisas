@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <h1 class="text-white bg-dark text-center">Autovitus</h1>
+    <p class="text-info bg-dark text-center">Lengvųjų ir mikroautobusų servisas Kaune</p>
+    <h10 class="text-info text-align:left">SKAMBINKITE DARBO DIENOMIS +370 658 33 333</h10>
+  </div>
+ {% load static %}
+
+  <p>Šiuo metu taisomi {{cars_count}} automobilių modeliai:</p>
+<div class="row">
+  {% for car in cars %}
+        <div class="col-md-4 d-flex align-items-stretch text-center">
+          <div class="card mb-4 shadow-sm " >
+            {% if car.cover %}
+              <img src="{{ car.cover.url }}" class="card-img-top book-cover" alt="..." >
+            {% else %}
+              <img src="{% static 'media/covers/no-image.png' %}" class="card-img-top book-cover">
+            {% endif %}
+        {{car.brand}} {{car.car_model}}
+              </div>
+            </div>
+
+
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}

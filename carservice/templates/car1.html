@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+
+
+<br>
+      <p>Klientas: {{repaired_car.client}}</p>
+      <p>Automobilio markė: {{repaired_car.car_model.brand}} {{repaired_car.car_model.car_model}}</p>
+      <p>Automobilio pagaminimo metai: {{repaired_car.car_model.year}} </p>
+      <p>VIN: {{repaired_car.vin_number}} </p>
+      <p>Valstybinis numeris: {{repaired_car.plate_nr}} </p>
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Paieškos pagal "{{query}}" rezultatai:</h1>
+  </br>
+  {% if cars %}
+  <ul>
+    {% for car in cars %}
+      <li>
+        <b>Klientas:</b> {{ car.client }} - <b>Modelis:</b> {{ car.car_model }} -
+        <b>VIN:</b> {{ car.vin_number }} - <b>Valstybinis nr:</b> {{ car.plate_nr }}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Nieko neradome :(</p>
+  {% endif %}
+
+  {% endblock %}

@@ -1,12 +1,15 @@
 from django.db import models
 from django.utils import timezone
 import datetime
+from django_resized import ResizedImageField
+
 class CarModel(models.Model):
     car_model_id = models.AutoField(primary_key=True)
     brand = models.CharField('Brand', max_length=100)
     car_model = models.CharField('Car model', max_length=100)
     year = models.DateField('Made on year' ,null=True)
     engine = models.CharField('Engine', max_length=100)
+    cover = ResizedImageField('Viršelis',size=[300,400],upload_to='covers',null=True)
     def __str__(self):
         return f'{self.brand} - {self.car_model}'
 
@@ -51,17 +54,38 @@ class ServicePrice(models.Model):
     class Meta:
         verbose_name = 'Service Price'
         verbose_name_plural = 'Service Prices'
-class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
+
+    def display_cars(self):
+        return ', '.join(car.car_model for car in self.cars.all())
+
+# uzaskymas
+class OrderList(models.Model):
+    order_list_id = models.AutoField(primary_key=True)
     order_date = models.DateTimeField(default=timezone.now)
     car = models.ForeignKey(Car, on_delete=models.SET_NULL, null=True)
-    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
     total_price = models.FloatField()
 
     def __str__(self):
-        return f'{self.car} - {self.service} - {self.total_price} - {self.order_date}'
+        return f' {self.car} - {self.order_date} - {self.total_price}'
+
+    class Meta:
+        verbose_name = 'Order List'
+        verbose_name_plural = 'Order Lists'
+
+# uzsakymo eilute
+class Order(models.Model):
+    order_id = models.AutoField(primary_key=True)
+    order_list_id = models.ForeignKey(OrderList, on_delete=models.SET_NULL, null=True)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField()
+    price = models.FloatField()
+
+
+    def __str__(self):
+        return f'{self.order_list_id} - {self.service} - {self.quantity} - {self.price}'
 
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+

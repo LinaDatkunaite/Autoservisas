@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+  <p><strong>Užsakymai:</strong></p>
+
+
+<table class="table table-sm" style="align: center; margin-top:10px, margin-light:50px">
+      <thead class="thead-dark">
+      <th>Klientas ir Automobilis</th>
+      <th>Užsakymo data</th>
+      <th>Bendra užsakymo suma</th>
+      <th> </th>
+      </thead>
+      <tbody>
+       {% for order in orders %}
+      <tr>
+        <td>{{order.car}}</td>
+        <td>{{order.order_date}}</td>
+        <td>{{order.total_price}} eur</td>
+        <td><a href="{% url 'specific_order' order.order_list_id %}">Detaliau</a></td>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% load static %}
+<br>
+<p><h4>Šiuo metu taisomi automobiliai:</h4></p>
+  {% for a in cars %}
+    <div class="col-md-4 d-flex align-items-stretch text-center">
+          <div class="card mb-4 shadow-sm " >
+            {% if a.car_model.cover %}
+              <img src="{{ a.car_model.cover.url }}" class="card-img-top book-cover" alt="..." >
+            {% else %}
+              <img src="{% static 'media/covers/no-image.png' %}" class="card-img-top book-cover">
+            {% endif %}
+            <p><a href="{% url 'car1' a.car_id %}">{{a.car_model}} - {{a.plate_nr}} (savininkas: {{a.client}})</a> </p>
+
+          </div>
+    </div>
+  {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if cars.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-end">
+                {% for i in cars.paginator.page_range %}
+                    {% if cars.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock %}
